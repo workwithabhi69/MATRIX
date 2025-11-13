@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int r, c;
+    cin >> r >> c;
+    vector<vector<int>> key(r, vector<int>(c));
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            cin >> key[i][j];
+
+    vector<int> message(c);
+    for (int i = 0; i < c; i++)
+        cin >> message[i];
+
+    vector<int> encoded(r, 0);
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            encoded[i] += key[i][j] * message[j];
+
+    for (int i = 0; i < r; i++)
+        cout << encoded[i] << " ";
+    
+    return 0;
+}
