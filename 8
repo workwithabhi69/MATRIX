@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int N;
+    cin >> N;
+    vector<vector<int>> mat(N, vector<int>(N));
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            cin >> mat[i][j];
+
+    for (int i = 0; i < N; i++) {
+        for (int j = i + 1; j < N; j++)
+            swap(mat[i][j], mat[j][i]);
+    }
+
+    for (int i = 0; i < N; i++) {
+        int left = 0, right = N - 1;
+        while (left < right) {
+            swap(mat[i][left], mat[i][right]);
+            left++;
+            right--;
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++)
+            cout << mat[i][j] << " ";
+        cout << endl;
+    }
+
+    return 0;
+}
