@@ -2,43 +2,25 @@
 #include <vector>
 using namespace std;
 
-double determinant(vector<vector<double>> mat, int n) {
-    if (n == 1)
-        return mat[0][0];
-
-    double det = 0;
-    vector<vector<double>> submat(n - 1, vector<double>(n - 1));
-
-    for (int x = 0; x < n; x++) {
-        int subi = 0;
-        for (int i = 1; i < n; i++) {
-            int subj = 0;
-            for (int j = 0; j < n; j++) {
-                if (j == x) continue;
-                submat[subi][subj] = mat[i][j];
-                subj++;
-            }
-            subi++;
-        }
-        det += (x % 2 == 0 ? 1 : -1) * mat[0][x] * determinant(submat, n - 1);
-    }
-
-    return det;
-}
+struct Element {
+    int row, col, value;
+};
 
 int main() {
-    int n;
-    cin >> n;
-    vector<vector<double>> mat(n, vector<double>(n));
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            cin >> mat[i][j];
+    int m, n, numNonZero;
+    cin >> m >> n >> numNonZero;
+    vector<Element> sparse;
 
-    double det = determinant(mat, n);
-    if (det != 0)
-        cout << "Invertible";
-    else
-        cout << "Not Invertible";
+    for (int i = 0; i < numNonZero; i++) {
+        int r, c, val;
+        cin >> r >> c >> val;
+        sparse.push_back({r, c, val});
+    }
+
+    cout << "Sparse Matrix Representation:\n";
+    cout << "Row Col Value\n";
+    for (auto e : sparse)
+        cout << e.row << " " << e.col << " " << e.value << "\n";
 
     return 0;
 }
